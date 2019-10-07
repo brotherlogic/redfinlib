@@ -25,6 +25,10 @@ func TestGetCurrentPrice(t *testing.T) {
 	if stats.CurrentPrice != 799000 {
 		t.Errorf("Price has been read incorrectly: %v", stats)
 	}
+
+	if stats.CurrentEstimate != 1151359 {
+		t.Errorf("Cannot extract correct estimate: %v", stats)
+	}
 }
 
 func TestMain(t *testing.T) {

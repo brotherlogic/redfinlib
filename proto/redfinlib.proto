@@ -4,5 +4,6 @@ package redfinlib;
 
 message Stats {
   int32 current_price = 1;
+  int32 current_estimate = 2;
 }
   

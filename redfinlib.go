@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
+	"strconv"
+	"strings"
 
 	pb "github.com/brotherlogic/redfinlib/proto"
 )
@@ -27,6 +29,18 @@ func jsonExtract(stats *pb.Stats, jsonStr string) {
 
 }
 
+func estimateExtract(stats *pb.Stats, str string) {
+	re := regexp.MustCompile("Redfin Estimate:.*?value\">\\$(.*?)<")
+
+	values := re.FindAllStringSubmatch(str, -1)
+	for _, val := range values {
+		es, _ := strconv.Atoi(strings.Replace(val[1], ",", "", -1))
+		if es > 0 {
+			stats.CurrentEstimate = int32(es)
+		}
+	}
+}
+
 func extract(data string) (*pb.Stats, error) {
 	stats := &pb.Stats{}
 
@@ -35,6 +49,8 @@ func extract(data string) (*pb.Stats, error) {
 	for _, str := range strings {
 		jsonExtract(stats, str[1])
 	}
+
+	estimateExtract(stats, data)
 
 	return stats, nil
 }
