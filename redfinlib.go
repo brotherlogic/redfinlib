@@ -1,8 +1,7 @@
-package main
+package redfinlib
 
 import (
 	"encoding/json"
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -41,7 +40,8 @@ func estimateExtract(stats *pb.Stats, str string) {
 	}
 }
 
-func extract(data string) (*pb.Stats, error) {
+// Extract performs the extraction
+func Extract(data string) (*pb.Stats, error) {
 	stats := &pb.Stats{}
 
 	re := regexp.MustCompile("ld\\+json\">(.*?)<\\/script")
@@ -53,8 +53,4 @@ func extract(data string) (*pb.Stats, error) {
 	estimateExtract(stats, data)
 
 	return stats, nil
-}
-
-func main() {
-	fmt.Printf("We do nothing\n")
 }
