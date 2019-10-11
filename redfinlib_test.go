@@ -1,4 +1,4 @@
-package main
+package redfinlib
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ func TestGetCurrentPrice(t *testing.T) {
 		t.Fatalf("Can't even load the data: %v", err)
 	}
 
-	stats, err := extract(data)
+	stats, err := Extract(data)
 	if stats.CurrentPrice != 799000 {
 		t.Errorf("Price has been read incorrectly: %v", stats)
 	}
@@ -29,8 +29,4 @@ func TestGetCurrentPrice(t *testing.T) {
 	if stats.CurrentEstimate != 1151359 {
 		t.Errorf("Cannot extract correct estimate: %v", stats)
 	}
-}
-
-func TestMain(t *testing.T) {
-	main()
 }
